@@ -8,15 +8,14 @@ import {
   DESTROY_BILL } from 'constants/index';
 
 export default function bill(state = {
-  debts: [],
-  credits: []
+  allBills: [],
 }, action) {
   switch (action.type) {
     case GET_BILLS_REQUEST:
       return { ...state, isFetching: true };
     case GET_BILLS_SUCCESS: {
-      const { debts, credits } = action.result.data;
-      return { ...state, debts, credits, isFetching: false };
+      const { allBills } = action.result.data;
+      return { ...state, allBills, isFetching: false };
     }
     case GET_BILLS_FAILURE:
       return { ...state, isFetching: false };
@@ -27,15 +26,9 @@ export default function bill(state = {
     case ADD_BILL_FAILURE:
       return { ...state, isSubmitting: false };
     case DESTROY_BILL:
-      if (action.credit) {
-        return {
-          ...state,
-          credits: [...state.credits.filter((v, i) => i !== action.index)]
-        };
-      }
       return {
         ...state,
-        debts: [...state.debts.filter((v, i) => i !== action.index)]
+        allBills: [...state.allBills.filter((v, i) => i !== action.index)]
       };
     default:
       return state;

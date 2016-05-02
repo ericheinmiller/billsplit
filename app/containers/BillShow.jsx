@@ -8,19 +8,33 @@ class BillShow extends Component {
     fetchBills
   ]
 
-  renderTable(title, data, user) {
-    const credit = title === 'Credits';
-    const row = data.map((value, index) => {
+  renderTable() {
+    const { allBills } = this.props.bill;
+    const row = allBills.map((value, index) => {
+      const isCreditor = value.creditor === undefined;
       return (
+<<<<<<< HEAD
         <tr className={value.creditor == undefined? "green" : "red"} key={value.id}>
           <td>{value.description}</td>
           <td>{value.amount}</td>
           <td>{value.creditor == undefined ? value.debtor.email : value.creditor.email}</td>
+=======
+        <tr
+          key={value.id}
+          className={isCreditor ? 'table-success' : 'table-danger'} >
+          <td>{value.description}</td>
+          <td>{value.amount}</td>
+          <td>{isCreditor ? value.debtor.email : value.creditor.email}</td>
+>>>>>>> d2c341b66b0205da90a20780a640a43936cd13c0
           <td>
             <input
               className="btn btn-danger"
               type="button"
+<<<<<<< HEAD
               onClick={() => this.props.removeBillRequest(value.id, index, title)}
+=======
+              onClick={() => this.props.removeBillRequest(value.id, index)}
+>>>>>>> d2c341b66b0205da90a20780a640a43936cd13c0
               value="Marked Paid"
             />
           </td>
@@ -30,9 +44,9 @@ class BillShow extends Component {
 
     return (
       <div>
-        <h3>{title}</h3>
-        <table className="table table-inverse">
-          <thead>
+        <h3>Bills</h3>
+        <table className="table">
+          <thead className="thead-inverse">
             <tr>
               <th>Description</th>
               <th>Amount</th>
@@ -49,6 +63,7 @@ class BillShow extends Component {
   }
 
   renderBills() {
+<<<<<<< HEAD
     let bills = []; 
     let debtsPointer = 0;
     let creditsPointer = 0;
@@ -77,6 +92,13 @@ class BillShow extends Component {
     return <div>
              { bills.length ? this.renderTable('Bills', bills) : '' }
              { bills.length === 0 && bills.length === 0 ?
+=======
+    const { allBills } = this.props.bill;
+
+    return <div>
+             { allBills.length ? this.renderTable() : '' }
+             { allBills.length === 0 ?
+>>>>>>> d2c341b66b0205da90a20780a640a43936cd13c0
                'You currently have no bills. Go ahead and add one!' : '' }
            </div>;
   }

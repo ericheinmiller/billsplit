@@ -23,7 +23,10 @@ export function all(req, res) {
       }
     ]
   }).then(({ credits, debts }) => {
-    return res.json({ credits, debts });
+    const allBills = [...credits, ...debts].sort((a, b) => {
+      return new Date(b.createdAt) - new Date(a.createdAt);
+    });
+    return res.json({ allBills });
   }).catch((err) => {
     console.log(err);
     return res.status(500).send('Error in first query');

@@ -19,18 +19,17 @@ export function addBill(data) {
 }
 
 // Remove bill
-export function destroyBill(index, credit) {
+export function destroyBill(index) {
   return {
     type: types.DESTROY_BILL,
     index,
-    credit
   };
 }
 
-export function removeBillRequest(id, index, credit) {
+export function removeBillRequest(id, index) {
   return dispatch => {
     return axios.delete(`/bill/${id}`).then(() => {
-      dispatch(destroyBill(index, credit));
+      dispatch(destroyBill(index));
     });
   };
 }
